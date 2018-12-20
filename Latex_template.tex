@@ -1,0 +1,148 @@
+\documentclass[]{article}
+\usepackage{graphicx,epsf,ulem}
+\usepackage[margin=0.5in]{geometry}
+
+%\topmargin -0.5cm
+
+\begin{document}
+
+\title{UVBRI Bands Photometry of five starts}
+
+\author{Runquan Guan \\
+Lab partner: Jiaxuan Li}
+
+\date{\today}
+
+\maketitle
+
+\begin{abstract}
+
+Using a small telescope on the roof of Jack Basking Engineering building in the University of California at Santa Cruz, we acquired the magnitude of $\zeta$Aql, $\alpha$Del, $\alpha$Peg, $\beta$Aql, and $\gamma$Lyr in the Johnson Standard filter set.  
+
+\end{abstract} 
+
+\section*{Introduction}
+
+Early astronomy is a science of measuring light, and in the nowadays, we still need to subtract information from light using better technology, but the same approach. In order to know more about any celestial objects, essentially we need to know where they are and how bright they are. Photometry is a field that studies how to answer the questions above. In the last month, using a 0.254 meters Ritchy-Chretien reflector, we did an \textit{UBVRI} photometry to determine the magnitudes of five target stars($\zeta$Aql, $\alpha$Del, $\alpha$Peg, $\beta$Aql, and $\gamma$Lyr) in the fall star-sky that we are able to find with naked eyes, after a series of precise calibrations. 
+
+
+\section*{Procedure}
+In the process of measuring magnitudes, we first observed the stars on the night of November 4, 2018, a clear night with least cloud as possible, and then we calibrated, calculated the instrumental zero points and atmosphere extinction coefficients for \testit{UBVRI} bands using a python program. Then, we calculated the magnitudes and effective temperatures of the target stars. 
+
+
+\subsection*{Observation Procedure}
+Our observatory is located in the University of California at Santa Cruz. The exact location is 37.005,-122.0631, with an elevation of 260 meters. The parameters of the observing system are below\cite{Obs}: 
+
+\begin{center}
+\begin{tabular}{ |c|c| } 
+ \hline
+Telescope Type & Ritchy-Chretien reflector \\
+\hline
+Telescope Mfr. & Astro-Tech \\
+\hline
+Telescope Aperture & 0.254 meters \\
+\hline
+Telescope focal length & 2.000 meters \\
+\hline
+Mount & Losmandy G-11 \\
+\hline
+Control Software & GEMINI II \\
+\hline
+Camera & SBIG ST-7E \\
+\hline
+Detector pixels & 765 by 510 \\
+\hline
+Pixel size & 9 μm by 9 μm \\
+\hline
+Filters & SBIG CFW-8A \\
+\hline
+\end{tabular}
+\end{center}
+
+We used $\alpha$Cyg A as the standard star. We started with an observation on the standard star, then we observed it over time, in between of the observations of the other stars. Each observation includes two trials, and each trial is composed of all five bands. For each band, we took a series of five photos in one trial. We used the first trial of each obersation to find the proper exposure time so that the CCD camera would not over-saturated. And then in the second trial, we use the parameters that we found in the first trial to take the final photo series. Our observation started from 18:30 to 22:00. 
+
+\subsection*{Reduce Procedure}
+In general, we used the \textit{Python} library for source extraction and photometry \textt{SEP} to reduce the data. 
+We first detected the source, convolved the flux of the detected source(s), then masked out the source to calculate the average background level. the In order to convolve the flux averagely, we applied a circular mask which has a diameter of 31 pixels on all the photos. After subtracting the background, we then calculate the magnitude of each star of each band using the following equations.
+\begin{equation}
+\label{eqn:EQ1} 
+  Flux = \frac{N_{star}-N_{background}}{Mask Area}
+\end{equation} 
+\begin{equation}
+\label{eqn:EQ2} 
+ Intensity = \frac{Fulx}{Exposure\; time}
+\end{equation} 
+\begin{equation}
+\label{eqn:EQ3} 
+  Magnitude = -2.5log(Intensity)
+\end{equation}
+N is the convolution of pixel readings. 
+
+\subsection*{Calibration}
+we observed the standard star over time, so we built a function of the magnitude of airmass of the standard star. After linear regression, we have a slope and a intercept with y-axis for each band. The numerical value of the slope is the extinction coefficient and the intercept is the magnitude at zero airmass that we measure. To get the instrumental zero point, we subtracted the official magnitude of each band on \textit{SIMBAD} database with our zero-airmass. 
+
+We then used the extinction coefficient and the instrumental zero point to calibrate the \testit{UBVRI} bands of our target stars and acquired the value of the magnitude. 
+ 
+
+\section*{Results}
+
+\begin{table}[htbp!]
+\begin{center}
+\begin{tabular}{c c c c c c}
+\hline\hline
+\ \ \ \ Star name  \ \ \ \ & \ \ \ \  U band[Mag] \ \ \ \  & \ \ \ \  B band[Mag] \ \ \ \ \  & \ \ \ \ V band[Mag] \ \ \ \ & \ \ \ \ R band[Mag] \ \ \ \ & \ \ \ \ I band[Mag] \\[0.5ex]
+\hline
+$\alpha$Cyg A(known) & +4.86 & +4.17 & +3.08 & +2.16 & +1.70 \\
+$\zeta$Aql & +3.09 & +3.15 & +2.94 & +2.78 & +2.91 \\
+$\gamma$Lyr & +2.89 & +3.15 & +3.06 & +2.96 & +3.00 \\
+$\beta$Aql & +5.26 & +4.24 & +3.55 & +3.17 & +2.74 \\
+$\alpha$Del & +3.95 & +4.05 & +3.96 & +3.80 & +4.00 \\
+$\alpha$Peg & +2.56 & +2.85 & +2.67 & +2.06 & +2.32 \\
+
+\hline
+\end{tabular}
+\caption{Magnitudes of \textit{UBVRI} bands of all stars that involed in this observation, includes a calibration star.}
+\label{table:MagResult}
+\end{center}
+\end{table}
+
+
+
+\begin{figure*}[htbp!]
+\begin{center}
+\includegraphics[width=3.0in, angle=0]{Pic}
+\caption{picexampl.}
+\label{fig:Bestfigure}
+\end{center}
+\end{figure*}
+
+\section*{Analysis}
+
+
+A convenient method of adding large spaces in your file is 
+done with bigskip:
+
+\bigskip
+1) This is number one.
+
+\bigskip
+2) This is number two.
+\bigskip
+
+If you want to cite a reference in the text, simply add it to 
+your bibliography section, and you can then cite it as Ref. .
+To underline something, do \underline{this}. To write something as bold, 
+do \textbf{this}. To write something in italics, do \textit{this}. If you 
+want something in all caps, do {\sc This}.
+%If you want a comment in your tex file that won't show up in the pdf, 
+%use a percentage sign.
+
+\section*{Conclusion}
+
+%Here is the bibliography section
+\begin{thebibliography}{4}
+
+\bibitem{Obs} UCSC Physics Dept.,  "Phys 135 Observation Instruction", {\bf P1}, (Fall 2018).
+
+\end{thebibliography}
+\end{document}
